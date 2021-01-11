@@ -54,3 +54,103 @@ body {
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
 }
+.nav-item {
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    margin:initial;
+}
+.nav-link text-dark {
+    font-size: 18px;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+}
+
+    ol {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        font-size: 18px;
+        height: 2em;
+        line-height: 2em;
+        text-align: center;
+    }
+
+ol > li {
+    float: left;
+    background-color:darksalmon;
+    width: 150px;
+}
+ ol a {
+        display: block;
+        color: #000;
+        text-decoration: none;
+        padding: 0 5px;
+}
+
+
+ol > li > a:hover {
+        color: #09C;
+}
+
+ ol > li:hover {
+        background-color: #EEE;
+ }
+
+ol > li > ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+}
+
+ol > li {
+        float: left;
+        background-color: #FDD700;
+        width: 150px;
+        margin-left: 1px;
+}
+
+ol > li:first-child {
+       margin-left: 0;
+}
+
+ol > li > ul > li > a {
+    border-top: 1px solid #FFF;
+}
+ol {
+    background-color: #FFF;
+}
+
+ ol > li > ul > li {
+    background-color: #EEE;
+}
+
+ ol > li > ul > li:hover {
+    background-color: #DDD;
+}
+
+ol > li > ul > li:hover a {
+     color: #09C;
+}
+
+ol > li > ul {
+        display: none;
+}
+
+ol > li:hover > ul {
+        display: block;
+}
+
+ ol > li {
+        float: left;
+        background-color:antiquewhite; 
+        width: 150px;
+        margin-left: 1px;
+        height: 2em;
+    }
+
+ol > li:hover > a {
+            color: #09C;
+}
