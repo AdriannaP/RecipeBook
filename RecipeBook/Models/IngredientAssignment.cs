@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RecipeBook.Models
 {
-    public class IngredientList
+    public class IngredientAssignment
     {
         public int Id { get; set; }
         public Recipe Recipe { get; set; }
