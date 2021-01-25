@@ -17,6 +17,5 @@ namespace RecipeBook.Data
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<IngredientAssignment> IngredientAssignments { get; set; }
-        public DbSet<RecipeBook.ViewModels.RecipeViewModel> RecipeViewModel { get; set; }
     }
 }

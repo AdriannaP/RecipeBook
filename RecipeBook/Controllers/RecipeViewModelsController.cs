@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RecipeBook.Data;
+using RecipeBook.Services;
 using RecipeBook.ViewModels;
 
 namespace RecipeBook.Controllers
@@ -13,28 +14,30 @@ namespace RecipeBook.Controllers
     public class RecipeViewModelsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IRecipeService _recipeService;
 
-        public RecipeViewModelsController(ApplicationDbContext context)
+        public RecipeViewModelsController(ApplicationDbContext context, IRecipeService recipeService)
         {
+            _recipeService = recipeService;
             _context = context;
         }
 
         // GET: RecipeViewModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.RecipeViewModel.ToListAsync());
+            var recipes =_recipeService.GetRecipes();
+            return View(recipes);
         }
 
         // GET: RecipeViewModels/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var recipeViewModel = await _context.RecipeViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var recipeViewModel = _recipeService.GetRecipeViewModel(id);
             if (recipeViewModel == null)
             {
                 return NotFound();
@@ -62,18 +65,20 @@ namespace RecipeBook.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(recipeViewModel);
         }
 
         // GET: RecipeViewModels/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
+            var recipeViewModel = _recipeService.GetRecipeViewModel(id);
             if (id == null)
             {
                 return NotFound();
             }
-
-            var recipeViewModel = await _context.RecipeViewModel.FindAsync(id);
+            
+            //var recipeViewModel = await _context.Recipes.FindAsync(id);
             if (recipeViewModel == null)
             {
                 return NotFound();
@@ -92,12 +97,11 @@ namespace RecipeBook.Controllers
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(recipeViewModel);
+                    _recipeService.EditRecipeViewModel(recipeViewModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -113,18 +117,19 @@ namespace RecipeBook.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            
             return View(recipeViewModel);
         }
-
+       
         // GET: RecipeViewModels/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var recipeViewModel = await _context.RecipeViewModel
+            var recipeViewModel = await _context.Recipes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (recipeViewModel == null)
             {
@@ -139,15 +144,15 @@ namespace RecipeBook.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var recipeViewModel = await _context.RecipeViewModel.FindAsync(id);
-            _context.RecipeViewModel.Remove(recipeViewModel);
+            var recipeViewModel = await _context.Recipes.FindAsync(id);
+            _context.Recipes.Remove(recipeViewModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RecipeViewModelExists(int id)
         {
-            return _context.RecipeViewModel.Any(e => e.Id == id);
+            return _context.Recipes.Any(e => e.Id == id);
         }
     }
 }

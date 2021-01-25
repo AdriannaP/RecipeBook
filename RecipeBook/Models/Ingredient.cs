@@ -8,6 +8,7 @@ namespace RecipeBook.Models
     public class Ingredient
     {
         public int Id { get; set; }
+        public bool IsActive { get; set; }
         public string Name { get; set; }
         public int Unit { get; set; }
     }

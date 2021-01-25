@@ -30,19 +30,22 @@
                     <partial name="_LoginPartial" />
                     <ol class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark", asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" , asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" >Recipe</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home">Recipe</a>
                             <ul>
                                 <li><a href="#">Meal Type</a></li>
                                 <li><a href="#">Dish</a></li>
                                 <li><a href="#">Seasonal</a></li>
                                 <li><a href="#">Drinks</a></li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="RecipeViewModels" asp-action="Index">Management</a>
                         </li>
                     </ol>
                 </div>
