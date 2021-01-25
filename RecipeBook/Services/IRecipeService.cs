@@ -7,5 +7,6 @@ namespace RecipeBook.Services
     {
         RecipeViewModel GetRecipeViewModel(int Id);
         IList<RecipeViewModel> GetRecipes();
+        RecipeViewModel EditRecipeViewModel(RecipeViewModel recipeViewModelToUpdate);
     }
 }

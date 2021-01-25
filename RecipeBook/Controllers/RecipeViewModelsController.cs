@@ -30,15 +30,14 @@ namespace RecipeBook.Controllers
         }
 
         // GET: RecipeViewModels/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var recipeViewModel = await _context.Recipes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var recipeViewModel = _recipeService.GetRecipeViewModel(id);
             if (recipeViewModel == null)
             {
                 return NotFound();
@@ -66,18 +65,20 @@ namespace RecipeBook.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(recipeViewModel);
         }
 
         // GET: RecipeViewModels/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
+            var recipeViewModel = _recipeService.GetRecipeViewModel(id);
             if (id == null)
             {
                 return NotFound();
             }
-
-            var recipeViewModel = await _context.Recipes.FindAsync(id);
+            
+            //var recipeViewModel = await _context.Recipes.FindAsync(id);
             if (recipeViewModel == null)
             {
                 return NotFound();
@@ -96,12 +97,11 @@ namespace RecipeBook.Controllers
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(recipeViewModel);
+                    _recipeService.EditRecipeViewModel(recipeViewModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -117,11 +117,12 @@ namespace RecipeBook.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            
             return View(recipeViewModel);
         }
-
+       
         // GET: RecipeViewModels/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {

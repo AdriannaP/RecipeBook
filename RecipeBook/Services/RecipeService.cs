@@ -12,6 +12,11 @@ namespace RecipeBook.Services
     {
         private readonly ApplicationDbContext appDbContext;
 
+        public RecipeService (ApplicationDbContext applicationDbContext)
+        {
+            appDbContext = applicationDbContext;
+        }
+
         public RecipeViewModel GetRecipeViewModel(int id)
         {
             var recipe = appDbContext.Recipes.FirstOrDefault(m => m.Id == id);
@@ -26,13 +31,17 @@ namespace RecipeBook.Services
             };
             return recipeViewModel;
         }
+
         public IList<RecipeViewModel> GetRecipes()
         {
             var recipes = appDbContext.Recipes.ToList();
             IList<RecipeViewModel> recipeViewModels = new List<RecipeViewModel>(); 
             foreach(Recipe recipe in recipes)
             {
-                var ingredientAssignments = appDbContext.IngredientAssignments.Select(n => n).Where(c => c.Recipe.Id == recipe.Id).ToList();
+                var ingredientAssignments = appDbContext.IngredientAssignments.Select(n => n)
+                    .Where(c => c.Recipe.IsActive)
+                    .Where(c => c.Recipe.Id == recipe.Id).ToList();
+
                 RecipeViewModel recipeViewModel = new RecipeViewModel
                 {
                     Id = recipe.Id,
@@ -44,10 +53,38 @@ namespace RecipeBook.Services
             }
             return recipeViewModels;
         }
-        public RecipeService (ApplicationDbContext applicationDbContext)
+
+        public RecipeViewModel EditRecipeViewModel(RecipeViewModel recipeViewModelToUpdate)
         {
-            appDbContext = applicationDbContext;
+            var recipe = appDbContext.Recipes.FirstOrDefault(r => r.Id == recipeViewModelToUpdate.Id);
+            recipe.Name = recipeViewModelToUpdate.Name;
+            recipe.Instruction = recipeViewModelToUpdate.Instruction;
+
+            var ingredientsToRemove = appDbContext.IngredientAssignments.Select(n => n)
+                .Where(c => c.IsActive)
+                .Where(c => c.Recipe.Id == recipeViewModelToUpdate.Id)
+                .ToList();
+
+            foreach (var ingredient in ingredientsToRemove)
+            {
+                ingredient.IsActive = false;
+            }
+
+            foreach (var ingredientAssigment in recipeViewModelToUpdate.Ingredients)
+            {
+                var ingredient = appDbContext.Ingredients.FirstOrDefault(c => c.Id == ingredientAssigment.Id);
+
+                var ingredientAssignment = new IngredientAssignment()
+                {
+                    IsActive = true,
+                    Recipe = recipe,
+                    Ingredient = ingredient,
+                    Quantity = ingredientAssigment.Quantity
+                };
+            }
+
+            appDbContext.SaveChanges();
+            return recipeViewModelToUpdate;
         }
-       
     }
 }

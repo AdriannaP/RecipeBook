@@ -1,4 +1,5 @@
-﻿using RecipeBook.Models;
+﻿using RecipeBook.Data;
+using RecipeBook.Models;
 using System.Collections.Generic;
 
 namespace RecipeBook.ViewModels
