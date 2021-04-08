@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeBook.Data;
 
-namespace RecipeBook.Data.Migrations
+namespace RecipeBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210112163355_IngredientListRenaming")]
-    partial class IngredientListRenaming
+    [Migration("20210408183934_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -192,6 +192,8 @@ namespace RecipeBook.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsActive");
+
                     b.Property<string>("Name");
 
                     b.Property<int>("Unit");
@@ -208,6 +210,8 @@ namespace RecipeBook.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("IngredientId");
+
+                    b.Property<bool>("IsActive");
 
                     b.Property<int>("Quantity");
 
@@ -229,6 +233,8 @@ namespace RecipeBook.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Instruction");
+
+                    b.Property<bool>("IsActive");
 
                     b.Property<string>("Name");
 
