@@ -9,6 +9,7 @@ namespace RecipeBook.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Instruction { get; set; }
+        public string Type_of_dish { get; set; }
         public IList<IngredientAssignment> Ingredients { get; set; }
     }
 }
