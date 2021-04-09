@@ -27,6 +27,7 @@ namespace RecipeBook.Services
                 Id = recipe.Id,
                 Name = recipe.Name,
                 Instruction = recipe.Instruction,
+                Type_of_dish = recipe.Type_of_dish,
                 Ingredients = ingredientAssignments
             };
             return recipeViewModel;
@@ -47,6 +48,7 @@ namespace RecipeBook.Services
                     Id = recipe.Id,
                     Name = recipe.Name,
                     Instruction = recipe.Instruction,
+                    Type_of_dish = recipe.Type_of_dish,
                     Ingredients = ingredientAssignments
                 };
                 recipeViewModels.Add(recipeViewModel);
