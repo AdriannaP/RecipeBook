@@ -10,6 +10,7 @@ namespace RecipeBook.Models
         public int Id { get; set; }
         public bool IsActive { get; set; }
         public string Name { get; set; }
+        public string Type_of_dish { get; set; }
         public string Instruction { get; set; }
     }
 }
