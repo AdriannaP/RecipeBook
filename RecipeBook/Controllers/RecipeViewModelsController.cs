@@ -45,7 +45,50 @@ namespace RecipeBook.Controllers
 
             return View(recipeViewModel);
         }
+        public async Task<IActionResult> Breakfast()
+        {
 
+            var recipeViewModel = _recipeService.GetRecipes();
+            if (recipeViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(recipeViewModel);
+        }
+        public async Task<IActionResult> Dinner()
+        {
+
+            var recipeViewModel = _recipeService.GetRecipes();
+            if (recipeViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(recipeViewModel);
+        }
+        public async Task<IActionResult> Lunch()
+        {
+
+            var recipeViewModel = _recipeService.GetRecipes();
+            if (recipeViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(recipeViewModel);
+        }
+        public async Task<IActionResult> Drinks()
+        {
+
+            var recipeViewModel = _recipeService.GetRecipes();
+            if (recipeViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(recipeViewModel);
+        }
         // GET: RecipeViewModels/Create
         public IActionResult Create()
         {
